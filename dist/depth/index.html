@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#05070d">
+  <meta name="description" content="Depth mode: a scroll-driven Z-axis journey through Himanshu Kumar's work in AI agents, RAG, Kubernetes, and developer tools.">
+  <meta property="og:title" content="Himanshu Kumar — Depth Mode">
+  <meta property="og:description" content="Fly through the system, one plane at a time. AI agents, document intelligence, and the infrastructure that makes them work.">
+  <meta property="og:type" content="website">
+  <title>Himanshu Kumar — Depth Mode</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/fonts.css">
+  <link rel="stylesheet" href="/depth/depth.css">
+  <script src="/depth/depth.js" type="module"></script>
+</head>
+<body>
+  <a class="skip-link" href="#plane-ingress">Skip to content</a>
+
+  <div class="stage">
+    <canvas class="depthfield" aria-hidden="true"></canvas>
+    <div class="stage-veil" aria-hidden="true"></div>
+
+    <main class="world" id="world">
+
+      <!-- 01 — INGRESS -->
+      <section class="plane" id="plane-ingress" data-chapter="ingress" data-span="1.15" aria-labelledby="t-ingress">
+        <div class="plane-inner">
+          <span class="layer ghost-mark" data-depth="-320" aria-hidden="true">hk_</span>
+          <div class="layer" data-depth="70">
+            <p class="eyebrow"><span class="cross" aria-hidden="true">+</span> AI ENGINEER <i>/</i> BENGALURU, INDIA</p>
+            <h1 id="t-ingress">Intelligence,<br>engineered for<br><span class="accent">production.</span></h1>
+          </div>
+          <div class="layer" data-depth="20">
+            <p class="lede">I’m Himanshu. I build AI agents, intelligent applications, and the infrastructure that takes them from idea to production.</p>
+            <div class="ingress-meta">
+              <span class="avatar" aria-hidden="true">HK</span>
+              <span>Currently building at <strong>OnFinance AI</strong><br><span class="muted">IIT Kharagpur · Economics → Engineering</span></span>
+            </div>
+            <div class="actions">
+              <button class="btn btn-primary" data-jump="plane-impact">Enter the system <span aria-hidden="true">↓</span></button>
+              <a class="btn btn-ghost" href="/assets/Himanshu-Kumar-Profile.pdf" target="_blank" rel="noopener">Profile PDF <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02 — IMPACT -->
+      <section class="plane" id="plane-impact" data-chapter="impact" data-span="1.05" aria-labelledby="t-impact">
+        <div class="plane-inner">
+          <div class="layer" data-depth="50">
+            <p class="eyebrow section-index">01 / IMPACT AT ONFINANCE AI</p>
+            <h2 id="t-impact">Numbers that made it<br>all the way to production.</h2>
+          </div>
+          <div class="metric-row zgroup">
+            <div class="metric-card layer" data-depth="45"><span class="metric-value">100M<i>+</i></span><span class="metric-label">LLM tokens processed per month</span><span class="metric-note">OCR · retrieval · reranking pipelines</span></div>
+            <div class="metric-card layer" data-depth="0"><span class="metric-value">20<i>+</i></span><span class="metric-label">Enterprise client deployments</span><span class="metric-note">SaaS and on-premise delivery</span></div>
+            <div class="metric-card layer" data-depth="-45"><span class="metric-value">$260K<i>+</i></span><span class="metric-label">Infrastructure credits secured</span><span class="metric-note">AWS · Cloudflare Startup Program</span></div>
+          </div>
+          <p class="footnote layer" data-depth="0">Figures come from my profile. They describe systems I built, shipped, and still operate.</p>
+        </div>
+      </section>
+
+      <!-- 03..06 — PIPELINE -->
+      <section class="plane plane-flow" id="plane-flow-01" data-chapter="pipeline" data-span="0.95" aria-labelledby="t-flow-01">
+        <div class="plane-inner">
+          <span class="layer ghost-num" data-depth="-300" aria-hidden="true">01</span>
+          <div class="layer" data-depth="60">
+            <p class="eyebrow section-index">02 / THE PIPELINE <i>—</i> STAGE 01</p>
+            <h2 id="t-flow-01">A request enters<br>the graph.</h2>
+          </div>
+          <div class="layer" data-depth="10">
+            <p class="body">A request arrives carrying three things: the task to perform, the context around it, and the documents it is allowed to reach. Everything downstream is shaped by what lands here.</p>
+            <div class="mono-strip"><span class="prompt" aria-hidden="true">&gt;_</span> POST /agent/run <span class="dim">{ task, context, documents }</span></div>
+            <ul class="chips"><li>Task</li><li>Context</li><li>Documents</li></ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="plane plane-flow" id="plane-flow-02" data-chapter="pipeline" data-span="0.95" aria-labelledby="t-flow-02">
+        <div class="plane-inner">
+          <span class="layer ghost-num" data-depth="-300" aria-hidden="true">02</span>
+          <div class="layer" data-depth="60">
+            <p class="eyebrow section-index">02 / THE PIPELINE <i>—</i> STAGE 02</p>
+            <h2 id="t-flow-02">Orchestration decides<br>what happens next.</h2>
+          </div>
+          <div class="layer" data-depth="10">
+            <p class="body">LangGraph wires reasoning, tools, and context into configurable agent workflows. At OnFinance AI I architected this layer as <strong>Agent Studio</strong>: a connected file system, a dynamic tool registry, and skill-based prompt routing.</p>
+            <div class="mono-strip"><span class="glyph accent" aria-hidden="true">✳</span> reason <span class="dim">→</span> route <span class="dim">→</span> execute <span class="dim">→</span> repeat</div>
+            <ul class="chips"><li>LangGraph</li><li>Skill routing</li><li>Tool registry</li><li>Connected files</li></ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="plane plane-flow" id="plane-flow-03" data-chapter="pipeline" data-span="1.05" aria-labelledby="t-flow-03">
+        <div class="plane-inner">
+          <span class="layer ghost-num" data-depth="-300" aria-hidden="true">03</span>
+          <div class="layer" data-depth="60">
+            <p class="eyebrow section-index">02 / THE PIPELINE <i>—</i> STAGE 03</p>
+            <h2 id="t-flow-03">The branch: retrieval,<br>tools, inference.</h2>
+          </div>
+          <div class="branch-row zgroup">
+            <div class="branch-card layer" data-depth="70">
+              <span class="branch-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><ellipse cx="12" cy="5" rx="7" ry="3"/><path d="M5 5v14c0 4 14 4 14 0V5M5 12c0 4 14 4 14 0"/></svg></span>
+              <h3>Retrieval</h3>
+              <p>Vector search pulls the document context that actually matters into the workflow.</p>
+              <span class="branch-tech">Qdrant · FAISS · reranking</span>
+            </div>
+            <div class="branch-card layer" data-depth="20">
+              <span class="branch-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="m8 5-6 7 6 7m8-14 6 7-6 7m-3-16-2 20"/></svg></span>
+              <h3>Tool calls</h3>
+              <p>A dynamic registry hands the agent exactly the capabilities its current task needs.</p>
+              <span class="branch-tech">Dynamic registry · connected FS</span>
+            </div>
+            <div class="branch-card layer" data-depth="-30">
+              <span class="branch-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 1v5m6-5v5M9 18v5m6-5v5M1 9h5m-5 6h5m12-6h5m-5 6h5"/></svg></span>
+              <h3>Inference</h3>
+              <p>Model access for reasoning and generation, routed through a single gateway.</p>
+              <span class="branch-tech">LiteLLM · AWS Bedrock · Groq</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="plane plane-flow" id="plane-flow-04" data-chapter="pipeline" data-span="0.95" aria-labelledby="t-flow-04">
+        <div class="plane-inner">
+          <span class="layer ghost-num" data-depth="-300" aria-hidden="true">04</span>
+          <div class="layer" data-depth="60">
+            <p class="eyebrow section-index">02 / THE PIPELINE <i>—</i> STAGE 04</p>
+            <h2 id="t-flow-04">Out the other side:<br>something usable.</h2>
+          </div>
+          <div class="layer" data-depth="10">
+            <p class="body">The graph returns a structured result an application or a person can act on — validated, typed, and accompanied by the reasoning trace that produced it.</p>
+            <div class="mono-strip"><span class="glyph" aria-hidden="true">{ }</span> structured response <span class="dim">+ validation + trace</span></div>
+            <ul class="chips"><li>JSON</li><li>Pydantic validation</li><li>Reasoning trace</li></ul>
+            <p class="footnote">An illustrative workflow drawn from my engineering work. It is not live telemetry.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 07..10 — STACK -->
+      <section class="plane plane-stack" id="plane-stack-01" data-chapter="stack" data-span="0.88" aria-labelledby="t-stack-01">
+        <div class="plane-inner">
+          <span class="layer ghost-num" data-depth="-300" aria-hidden="true">01</span>
+          <div class="layer" data-depth="50">
+            <p class="eyebrow section-index">03 / WORKING STACK <i>—</i> LAYER 01</p>
+            <h2 id="t-stack-01">Intelligence</h2>
+            <p class="stack-sub">LLMs, agents &amp; retrieval</p>
+          </div>
+          <ul class="chips chips-lg layer" data-depth="-20"><li>Python</li><li>LangGraph</li><li>LangChain</li><li>LlamaIndex</li><li>LiteLLM</li><li>AWS Bedrock</li><li>Groq</li><li>Prompt engineering</li></ul>
+        </div>
+      </section>
+
+      <section class="plane plane-stack" id="plane-stack-02" data-chapter="stack" data-span="0.88" aria-labelledby="t-stack-02">
+        <div class="plane-inner">
+          <span class="layer ghost-num" data-depth="-300" aria-hidden="true">02</span>
+          <div class="layer" data-depth="50">
+            <p class="eyebrow section-index">03 / WORKING STACK <i>—</i> LAYER 02</p>
+            <h2 id="t-stack-02">Machine learning</h2>
+            <p class="stack-sub">Models, training &amp; evaluation</p>
+          </div>
+          <ul class="chips chips-lg layer" data-depth="-20"><li>PyTorch</li><li>TensorFlow</li><li>Keras</li><li>Scikit-learn</li><li>XGBoost</li><li>LightGBM</li><li>Transformers</li><li>spaCy</li></ul>
+        </div>
+      </section>
+
+      <section class="plane plane-stack" id="plane-stack-03" data-chapter="stack" data-span="0.88" aria-labelledby="t-stack-03">
+        <div class="plane-inner">
+          <span class="layer ghost-num" data-depth="-300" aria-hidden="true">03</span>
+          <div class="layer" data-depth="50">
+            <p class="eyebrow section-index">03 / WORKING STACK <i>—</i> LAYER 03</p>
+            <h2 id="t-stack-03">Infrastructure</h2>
+            <p class="stack-sub">From deployment to operations</p>
+          </div>
+          <ul class="chips chips-lg layer" data-depth="-20"><li>AWS</li><li>Kubernetes</li><li>Docker</li><li>Linux</li><li>GitHub Actions</li><li>Argo CD</li><li>Cloudflare</li><li>Bifrost</li></ul>
+        </div>
+      </section>
+
+      <section class="plane plane-stack" id="plane-stack-04" data-chapter="stack" data-span="0.88" aria-labelledby="t-stack-04">
+        <div class="plane-inner">
+          <span class="layer ghost-num" data-depth="-300" aria-hidden="true">04</span>
+          <div class="layer" data-depth="50">
+            <p class="eyebrow section-index">03 / WORKING STACK <i>—</i> LAYER 04</p>
+            <h2 id="t-stack-04">Data systems</h2>
+            <p class="stack-sub">Context, storage &amp; communication</p>
+          </div>
+          <ul class="chips chips-lg layer" data-depth="-20"><li>SQL</li><li>MongoDB</li><li>Qdrant</li><li>Pinecone</li><li>ChromaDB</li><li>Redis</li><li>RabbitMQ</li><li>Trino</li><li>MySQL</li></ul>
+        </div>
+      </section>
+
+      <section class="plane plane-stack" id="plane-stack-05" data-chapter="stack" data-span="0.88" aria-labelledby="t-stack-05">
+        <div class="plane-inner">
+          <span class="layer ghost-num" data-depth="-300" aria-hidden="true">05</span>
+          <div class="layer" data-depth="50">
+            <p class="eyebrow section-index">03 / WORKING STACK <i>—</i> LAYER 05</p>
+            <h2 id="t-stack-05">Applications</h2>
+            <p class="stack-sub">Interfaces &amp; analysis</p>
+          </div>
+          <ul class="chips chips-lg layer" data-depth="-20"><li>FastAPI</li><li>Pydantic</li><li>TypeScript</li><li>Swift</li><li>Streamlit</li><li>Dash</li><li>Pandas</li><li>Power BI</li></ul>
+        </div>
+      </section>
+
+      <!-- 11 — WORK INDEX -->
+      <section class="plane" id="plane-work" data-chapter="work" data-span="1.05" aria-labelledby="t-work">
+        <div class="plane-inner">
+          <div class="layer" data-depth="50">
+            <p class="eyebrow section-index">04 / SELECTED WORK</p>
+            <h2 id="t-work">Built. Shipped. Open.</h2>
+            <p class="body">Six things I put into the world. The next six planes take them one at a time — or jump straight to one.</p>
+          </div>
+          <ol class="work-index layer" data-depth="-20">
+            <li><button data-jump="plane-work-01"><span class="wi-num">01</span><span class="wi-name">TerminalHistory</span><span class="wi-cat">Developer tools</span><span class="wi-go" aria-hidden="true">↗</span></button></li>
+            <li><button data-jump="plane-work-02"><span class="wi-num">02</span><span class="wi-name">CSVChat</span><span class="wi-cat">Retrieval-augmented generation</span><span class="wi-go" aria-hidden="true">↗</span></button></li>
+            <li><button data-jump="plane-work-03"><span class="wi-num">03</span><span class="wi-name">System Design Academy</span><span class="wi-cat">Systems &amp; engineering</span><span class="wi-go" aria-hidden="true">↗</span></button></li>
+            <li><button data-jump="plane-work-04"><span class="wi-num">04</span><span class="wi-name">Real-time Anomaly Detection</span><span class="wi-cat">Streaming machine learning</span><span class="wi-go" aria-hidden="true">↗</span></button></li>
+            <li><button data-jump="plane-work-05"><span class="wi-num">05</span><span class="wi-name">Open Agents</span><span class="wi-cat">Open source &amp; cloud agents</span><span class="wi-go" aria-hidden="true">↗</span></button></li>
+            <li><button data-jump="plane-work-06"><span class="wi-num">06</span><span class="wi-name">Hierarchical Document Parsing</span><span class="wi-cat">Document intelligence</span><span class="wi-go" aria-hidden="true">↗</span></button></li>
+          </ol>
+          <a class="text-link layer" data-depth="0" href="https://github.com/HimanshuKumar17052001" target="_blank" rel="noopener noreferrer">All repositories on GitHub <span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
+
+      <!-- 12..17 — PROJECTS -->
+      <section class="plane plane-project" id="plane-work-01" data-chapter="work" data-span="1.05" aria-labelledby="t-work-01">
+        <div class="plane-inner project-grid">
+          <div class="project-copy layer" data-depth="45">
+            <p class="eyebrow section-index">DEVELOPER TOOLS <i>/</i> SWIFT <span class="pnum">01</span></p>
+            <h2 id="t-work-01">TerminalHistory</h2>
+            <p class="body">Your terminal sessions, remembered. A native macOS menu bar app and CLI that captures sessions automatically and replays them with a fresh shell in the original working directory.</p>
+            <ul class="notes">
+              <li>Captures sessions through a login-shell wrapper across terminals, IDEs, Docker, and SSH.</li>
+              <li>Day-grouped menu bar dropdown plus a dedicated search window.</li>
+              <li>Stores sessions locally in SQLite, with no third-party package dependencies.</li>
+            </ul>
+            <ul class="chips"><li>Swift</li><li>macOS</li><li>SQLite</li><li>CLI</li></ul>
+            <a class="btn btn-primary" href="https://github.com/HimanshuKumar17052001/terminalhistory" target="_blank" rel="noopener noreferrer">View source <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="project-visual layer" data-depth="-60">
+            <div class="viz viz-terminal">
+              <div class="viz-bar"><span>terminalhistory</span><span aria-hidden="true">⌘ ↩</span></div>
+              <div class="viz-line"><span class="prompt">~</span> sessions <span class="accent">--recent</span></div>
+              <div class="viz-row"><span>01</span><span>deploy-api</span><span>zsh</span></div>
+              <div class="viz-row on"><span>02</span><span>debug-inference</span><span>zsh</span></div>
+              <div class="viz-row"><span>03</span><span>local-build</span><span>bash</span></div>
+              <div class="viz-line dim"><span aria-hidden="true">↳</span> replay session<span class="caret" aria-hidden="true"></span></div>
+            </div>
+            <span class="viz-label">WORKFLOW ILLUSTRATION</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="plane plane-project" id="plane-work-02" data-chapter="work" data-span="1.05" aria-labelledby="t-work-02">
+        <div class="plane-inner project-grid">
+          <div class="project-copy layer" data-depth="45">
+            <p class="eyebrow section-index">AI &amp; DATA <i>/</i> CONVERSATIONAL RETRIEVAL <span class="pnum">02</span></p>
+            <h2 id="t-work-02">CSVChat</h2>
+            <p class="body">A conversation with your CSV. Tabular data becomes searchable knowledge, so people can ask questions in plain English and get grounded answers.</p>
+            <ul class="notes">
+              <li>Loads CSV data, chunks it, and generates sentence-transformer embeddings.</li>
+              <li>Stores embeddings in FAISS for similarity search.</li>
+              <li>Uses a LangChain conversational retrieval chain with a Groq model for contextual Q&amp;A.</li>
+            </ul>
+            <ul class="chips"><li>Python</li><li>LangChain</li><li>FAISS</li><li>Groq</li></ul>
+            <a class="btn btn-primary" href="https://github.com/HimanshuKumar17052001/CSVChat-Intelligent-CSV-Data-Explorer" target="_blank" rel="noopener noreferrer">View source <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="project-visual layer" data-depth="-60">
+            <div class="viz viz-csv">
+              <div class="viz-bar"><span aria-hidden="true">▤</span> dataset.csv <span class="pill">CSV</span></div>
+              <div class="csv-grid" aria-hidden="true"><span>region</span><span>revenue</span><span>growth</span><span>North</span><span>24,800</span><span>+12.4%</span><span>South</span><span>31,600</span><span>+18.2%</span></div>
+              <div class="viz-line"><span class="accent" aria-hidden="true">✳</span> Ask your data. In plain English.<span class="caret" aria-hidden="true"></span></div>
+            </div>
+            <span class="viz-label">ILLUSTRATIVE SAMPLE DATA</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="plane plane-project" id="plane-work-03" data-chapter="work" data-span="1.05" aria-labelledby="t-work-03">
+        <div class="plane-inner project-grid">
+          <div class="project-copy layer" data-depth="45">
+            <p class="eyebrow section-index">SYSTEMS &amp; ENGINEERING <span class="pnum">03</span></p>
+            <h2 id="t-work-03">System Design Academy</h2>
+            <p class="body">A TypeScript and Next.js learning platform that takes developers from system-design foundations through distributed systems, operations, and interview preparation.</p>
+            <ul class="notes">
+              <li>Eight phases, from foundations and low-level design to distributed systems and reliability.</li>
+              <li>Interactive simulations, multiple quiz formats, progress tracking, and an AI learning assistant.</li>
+              <li>Case studies covering messaging, ride matching, video streaming, and search autocomplete.</li>
+            </ul>
+            <ul class="chips"><li>TypeScript</li><li>Next.js</li><li>System design</li></ul>
+            <a class="btn btn-primary" href="https://github.com/HimanshuKumar17052001/system-design-academy" target="_blank" rel="noopener noreferrer">View source <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="project-visual layer" data-depth="-60">
+            <div class="viz viz-map">
+              <span class="map-node">Client</span>
+              <span class="map-link" aria-hidden="true"></span>
+              <span class="map-node hot">Load balancer</span>
+              <span class="map-link" aria-hidden="true"></span>
+              <div class="map-split"><span class="map-node">Service A</span><span class="map-node">Service B</span></div>
+              <span class="map-caption">THINK IN SYSTEMS.</span>
+            </div>
+            <span class="viz-label">SYSTEM DESIGN ILLUSTRATION</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="plane plane-project" id="plane-work-04" data-chapter="work" data-span="1.05" aria-labelledby="t-work-04">
+        <div class="plane-inner project-grid">
+          <div class="project-copy layer" data-depth="45">
+            <p class="eyebrow section-index">STREAMING MACHINE LEARNING <span class="pnum">04</span></p>
+            <h2 id="t-work-04">Real-time Anomaly Detection</h2>
+            <p class="body">Make the unusual visible. A dashboard that simulates a live data stream, detects unusual observations as they arrive, and lets you inspect and export the results.</p>
+            <ul class="notes">
+              <li>River’s Predictive Anomaly Detection with a SNARIMAX time-series model.</li>
+              <li>Simulates concept drift and occasional anomalies, visualised with Dash and Plotly.</li>
+              <li>Start, stop, and reset controls, plus CSV export of detected anomalies.</li>
+            </ul>
+            <ul class="chips"><li>Python</li><li>River</li><li>Dash</li><li>Plotly</li></ul>
+            <a class="btn btn-primary" href="https://github.com/HimanshuKumar17052001/real-time-anomaly-detection" target="_blank" rel="noopener noreferrer">View source <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="project-visual layer" data-depth="-60">
+            <div class="viz viz-chart">
+              <div class="viz-bar"><span>STREAM / ANOMALY DETECTION</span><span class="pill">SIMULATED</span></div>
+              <svg viewBox="0 0 480 150" fill="none" role="img" aria-label="Illustrative time series with two highlighted anomalies">
+                <path class="c-grid" d="M0 30h480M0 75h480M0 120h480M60 0v150M180 0v150M300 0v150M420 0v150"/>
+                <path class="c-band" d="M0 53h480v48H0Z"/>
+                <path class="c-line" d="m0 78 15-8 15 15 15-11 15 6 15-14 15 8 15-3 15 11 15-9 15 7 15-52 15 44 15-3 15 17 15-11 15 5 15-9 15 14 15-5 15-52 15 46 15-6 15 17 15-8 15 4 15-10 15 4 15-2 15 8 15-6 15 2"/>
+                <circle class="c-dot" cx="165" cy="28" r="5"/><circle class="c-dot" cx="300" cy="20" r="5"/>
+              </svg>
+              <div class="viz-legend"><span><i class="k-sig"></i> Signal</span><span><i class="k-ano"></i> Anomaly</span></div>
+            </div>
+            <span class="viz-label">ILLUSTRATIVE SIGNAL</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="plane plane-project" id="plane-work-05" data-chapter="work" data-span="1.05" aria-labelledby="t-work-05">
+        <div class="plane-inner project-grid">
+          <div class="project-copy layer" data-depth="45">
+            <p class="eyebrow section-index">OPEN SOURCE <i>/</i> CLOUD AGENTS <span class="pnum">05</span></p>
+            <h2 id="t-work-05">Open Agents</h2>
+            <p class="body">Coding agents that live in the cloud. A durable workflow drives an isolated sandbox VM through tools, so the agent and the machine it works on stay separate.</p>
+            <ul class="notes">
+              <li>Runs chat-driven coding agents with file, search, shell, and task tools over a cloned repository.</li>
+              <li>The isolated VM snapshots and resumes while the durable workflow streams and stays cancellable.</li>
+              <li>My fork adds a hardened MongoDB connector: schema discovery, read-only queries with size and execution guards, rejected write operators, and a PII-redacting audit log.</li>
+            </ul>
+            <p class="credit"><span class="credit-tag">FORK</span> Built on <a href="https://github.com/vercel-labs/open-agents" target="_blank" rel="noopener noreferrer">vercel-labs/open-agents</a> (MIT).</p>
+            <ul class="chips"><li>TypeScript</li><li>Next.js</li><li>Sandbox VM</li><li>Python</li><li>MongoDB</li></ul>
+            <a class="btn btn-primary" href="https://github.com/HimanshuKumar17052001/open-agents" target="_blank" rel="noopener noreferrer">View source <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="project-visual layer" data-depth="-60">
+            <div class="viz viz-agents">
+              <div class="viz-bar"><span>agent · sandbox</span><span class="pill">ISOLATED</span></div>
+              <div class="ag-box hot"><span class="ag-title">AGENT WORKFLOW</span><span class="ag-note">durable · streaming · cancellable</span></div>
+              <div class="ag-wire" aria-hidden="true"><span>tools <b>↓</b></span><span class="ag-rail"></span><span><b>↑</b> results</span></div>
+              <div class="ag-box"><span class="ag-title">SANDBOX VM</span><span class="ag-chips"><i>fs</i><i>shell</i><i>git</i><i>dev server</i></span><span class="ag-note">snapshot · resume</span></div>
+              <div class="viz-line dim">the agent is not the sandbox.</div>
+            </div>
+            <span class="viz-label">ARCHITECTURE ILLUSTRATION</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="plane plane-project" id="plane-work-06" data-chapter="work" data-span="1.05" aria-labelledby="t-work-06">
+        <div class="plane-inner project-grid">
+          <div class="project-copy layer" data-depth="45">
+            <p class="eyebrow section-index">DOCUMENT INTELLIGENCE <span class="pnum">06</span></p>
+            <h2 id="t-work-06">Hierarchical Document Parsing</h2>
+            <p class="body">A document as a tree, not a blob. Vision calls infer section boundaries and describe every node, so an agent can walk the structure instead of re-reading the page.</p>
+            <ul class="notes">
+              <li>Parses documents into a hierarchy of pages, sections, and bounding boxes, using vision calls to infer boundaries across varied layouts.</li>
+              <li>Describes every node in natural language, so sections are found by meaning rather than coordinates.</li>
+              <li>Adds tree-navigation tools — parent, child, sibling, label search, box filtering — and caches tree state, cutting vision API calls by more than 60%.</li>
+            </ul>
+            <p class="credit"><span class="credit-tag">INTERNAL</span> Built at OnFinance AI. No public repository.</p>
+            <ul class="chips"><li>Python</li><li>Claude Haiku 4.5</li><li>Vision</li><li>Agentic traversal</li></ul>
+          </div>
+          <div class="project-visual layer" data-depth="-60">
+            <div class="viz viz-doc">
+              <div class="viz-bar"><span>annual-report.pdf</span><span class="pill">p. 04</span></div>
+              <div class="doc-node"><span class="doc-tag">§1</span> Overview</div>
+              <div class="doc-node boxed"><span class="doc-tag">§2</span> Financial statements</div>
+              <div class="doc-node lvl2"><span class="doc-branch" aria-hidden="true">└</span><span class="doc-tag">§2.1</span> Revenue table</div>
+              <div class="viz-line dim">pages <b>→</b> sections <b>→</b> boxes</div>
+            </div>
+            <span class="viz-label">DOCUMENT TREE ILLUSTRATION</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 18..19 — EXPERIENCE -->
+      <section class="plane" id="plane-exp-01" data-chapter="experience" data-span="1.2" aria-labelledby="t-exp-01">
+        <div class="plane-inner">
+          <div class="layer" data-depth="45">
+            <p class="eyebrow section-index">05 / EXPERIENCE <i>—</i> CURRENT</p>
+            <div class="role-head">
+              <h2 id="t-exp-01">AI Engineer</h2>
+              <span class="badge">JUN 2025 — PRESENT</span>
+            </div>
+            <p class="company">OnFinance AI <span class="muted">· Bengaluru</span></p>
+          </div>
+          <div class="layer" data-depth="-20">
+            <p class="body">Building AI agents for risk, audit, and compliance in financial services.</p>
+            <ul class="notes">
+              <li>Architected <strong>Agent Studio</strong>: a LangGraph workflow engine with a connected file system, dynamic tool registry, and skill-based prompt routing, orchestrating AI pipelines across multiple product verticals.</li>
+              <li>Engineered LLM, RAG, and document intelligence pipelines processing <strong>100M+ tokens per month</strong>, using LiteLLM, AWS Bedrock, OCR, FusionQuery search, and re-ranking.</li>
+              <li>Built clause-level RAG pipelines and agentic workflows over <strong>SEBI, RBI, and IRDAI</strong> regulatory data and compliance circulars.</li>
+              <li>Owned AWS Kubernetes infrastructure and client delivery across <strong>20+ enterprise accounts</strong>, including NSE, BSE, Axis Finance, BharatPe, and PayU Finance.</li>
+              <li>Secured <strong>$260K+ in infrastructure credits</strong> through AWS and the Cloudflare Startup Program.</li>
+              <li>Contributed to a <strong>$4.2M Pre-Series A</strong> from Peak XV Partners through technical demos and executive product presentations.</li></ul>
+            <ul class="chips"><li>LangGraph</li><li>AWS Bedrock</li><li>Kubernetes</li><li>RAG</li><li>Argo CD</li></ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="plane" id="plane-exp-02" data-chapter="experience" data-span="1.15" aria-labelledby="t-exp-02">
+        <div class="plane-inner">
+          <div class="layer" data-depth="45">
+            <p class="eyebrow section-index">05 / EXPERIENCE <i>—</i> BEFORE THAT</p>
+            <h2 id="t-exp-02">How I got here.</h2>
+          </div>
+          <ol class="timeline layer" data-depth="-20">
+            <li><span class="tl-date">MAY — JUN 2025</span><div><h3>LLM Trainer <span class="muted">· Outlier, Remote</span></h3><p>RLHF preference ranking and pairwise comparison of model responses across coding and reasoning tasks, with evidence-based justifications for every rating. Authored failure-mode annotations that shaped reward-model signals.</p></div></li>
+            <li><span class="tl-date">OCT — DEC 2024</span><div><h3>LLM Trainer <span class="muted">· Soul AI</span></h3><p>Evaluated and benchmarked multi-model LLM outputs for factual accuracy and reasoning. Audited agent tool-calling behaviour — function-call schemas, parameter correctness, API reliability — and engineered zero-shot, few-shot, and chain-of-thought prompts.</p></div></li>
+            <li><span class="tl-date">MAY — JUL 2024</span><div><h3>AI Intern <span class="muted">· Schneider Electric, Bengaluru</span></h3><p>Built a GenAI knowledge bot using retrieval-augmented generation over internal documentation and codebases to return source-grounded answers, and designed semantic indexing and vector search to make engineering knowledge discoverable org-wide.</p></div></li>
+            <li><span class="tl-date">SEP — DEC 2023</span><div><h3>AI Research Intern <span class="muted">· IIT Kharagpur</span></h3><p>Research internship alongside my M.Sc. in Economics.</p></div></li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- 20 — ABOUT -->
+      <section class="plane" id="plane-about" data-chapter="about" data-span="1.15" aria-labelledby="t-about">
+        <div class="plane-inner">
+          <div class="layer" data-depth="45">
+            <p class="eyebrow section-index">06 / THE ENGINEER BEHIND THE CODE</p>
+            <h2 id="t-about">An economist’s lens.<br>An engineer’s instinct.</h2>
+          </div>
+          <div class="about-grid layer" data-depth="-20">
+            <div>
+              <p class="body">I studied Economics at IIT Kharagpur. Today I work at the intersection of business and AI: understanding the problem, designing the system, and getting it into production.</p>
+              <p class="body">I enjoy the whole journey — raw data, model behaviour, agent orchestration, and the infrastructure underneath. The goal stays the same: build something useful that works in the real world.</p>
+            </div>
+            <div class="about-cards">
+              <div class="card">
+                <span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h4l2-3h4l2 3h4a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1Z"/><circle cx="12" cy="12" r="4"/></svg></span>
+                <div><strong>A little outside the terminal.</strong><p>Photography and filmmaking. Former Head of Photography and Advisor at IIT Kharagpur’s Technology Filmmaking and Photography Society.</p></div>
+              </div>
+              <div class="card">
+                <span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="9" r="6"/><path d="m8.4 14.4-1.4 7.1 5-2.6 5 2.6-1.4-7.1"/></svg></span>
+                <div><strong>Institute Order of Merit <span class="tier">SOCIAL &amp; CULTURAL</span></strong><p>Awarded by IIT Kharagpur’s Technology Students’ Gymkhana for distinguished contribution to social and cultural life on campus — the Institute-level tier, above Honourable Mention and Special Mention.</p></div>
+              </div>
+              <div class="card">
+                <span class="card-icon glyph" aria-hidden="true">↳</span>
+                <div><strong>IIT Kharagpur</strong><p>M.Sc. Economics · 2020–2025 · 7.9 / 10.0 CGPA<br><span class="muted">AI4ICPS Certificate Programme</span></p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 21 — CONTACT -->
+      <section class="plane plane-contact" id="plane-contact" data-chapter="contact" data-span="0.6" aria-labelledby="t-contact">
+        <div class="plane-inner">
+          <span class="layer ghost-mark" data-depth="-320" aria-hidden="true">hk_</span>
+          <div class="layer" data-depth="55">
+            <p class="eyebrow section-index">07 / WHAT’S NEXT?</p>
+            <h2 id="t-contact">Have an interesting<br>problem? <span class="accent">Let’s build.</span></h2>
+          </div>
+          <div class="layer" data-depth="10">
+            <p class="body">I’m open to conversations about AI engineering, intelligent products, and the systems behind them.</p>
+            <div class="contact-row">
+              <a class="contact-email" href="mailto:himanshu.kumar0012@gmail.com">himanshu.kumar0012@gmail.com <span aria-hidden="true">↗</span></a>
+              <button class="icon-btn copy-email" aria-label="Copy email address" title="Copy email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg></button>
+            </div>
+            <div class="socials">
+              <a href="https://github.com/HimanshuKumar17052001" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+              <a href="https://www.linkedin.com/in/himanshu-k-377095102" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
+              <a href="/assets/Himanshu-Kumar-Profile.pdf" target="_blank" rel="noopener">Profile PDF <span aria-hidden="true">↗</span></a>
+              <a href="/">Classic view <span aria-hidden="true">↗</span></a>
+            </div>
+            <p class="footnote">© <span id="year">2026</span> Himanshu Kumar · Bengaluru, IN</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="scroll-track" aria-hidden="true"></div>
+
+  <!-- HUD -->
+  <header class="topbar">
+    <a class="topbar-brand" href="/" title="Himanshu Kumar — classic portfolio">hk<span>_</span><em data-view-name>depth</em></a>
+    <nav class="viewswitch" aria-label="View mode">
+      <a href="/" data-view="classic">Classic</a>
+      <button type="button" data-view="depth">Depth</button>
+      <button type="button" data-view="flat">Flat</button>
+    </nav>
+  </header>
+
+  <div class="hud" data-hud hidden>
+    <nav class="rail" aria-label="Chapters">
+      <ul>
+        <li><button data-rail="ingress"><i></i><span>Ingress</span></button></li>
+        <li><button data-rail="impact"><i></i><span>Impact</span></button></li>
+        <li><button data-rail="pipeline"><i></i><span>Pipeline</span></button></li>
+        <li><button data-rail="stack"><i></i><span>Stack</span></button></li>
+        <li><button data-rail="work"><i></i><span>Work</span></button></li>
+        <li><button data-rail="experience"><i></i><span>Experience</span></button></li>
+        <li><button data-rail="about"><i></i><span>About</span></button></li>
+        <li><button data-rail="contact"><i></i><span>Contact</span></button></li>
+      </ul>
+    </nav>
+
+    <div class="hud-bottom">
+      <div class="readout">
+        <span class="readout-main"><b data-plane-index>01</b><i>/</i><b data-plane-total>21</b> <em data-chapter-name>Ingress</em></span>
+        <span class="readout-sub">depth <b data-depth-readout>z 0</b></span>
+      </div>
+      <p class="hud-hint">Scroll to travel · <kbd>PgDn</kbd> <kbd>PgUp</kbd> or <kbd>&larr;</kbd> <kbd>&rarr;</kbd> to skip a plane</p>
+    </div>
+
+    <div class="cue" data-cue><span class="cue-line" aria-hidden="true"></span>Scroll to descend</div>
+    <div class="progress" aria-hidden="true"><span data-progress></span></div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
