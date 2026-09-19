@@ -1,0 +1,51 @@
+[
+  {
+    "broken": [],
+    "documentWidth": 320,
+    "width": 320
+  },
+  {
+    "broken": [],
+    "documentWidth": 390,
+    "width": 390
+  },
+  {
+    "broken": [],
+    "documentWidth": 768,
+    "width": 768
+  },
+  {
+    "broken": [],
+    "documentWidth": 1024,
+    "width": 1024
+  },
+  {
+    "broken": [],
+    "documentWidth": 1440,
+    "width": 1440
+  },
+  {
+    "mobileMenuOpens": true
+  },
+  {
+    "mobileMenuCloses": true
+  },
+  {
+    "dialogCloses": true
+  },
+  {
+    "docparse-mobileCanScroll": true
+  },
+  {
+    "csvchat-mobileCanScroll": true
+  },
+  {
+    "motionReenabled": true
+  },
+  {
+    "motionPaused": true
+  },
+  {
+    "motionResumed": true
+  }
+]

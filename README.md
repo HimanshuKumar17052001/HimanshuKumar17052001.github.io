@@ -1,72 +1,67 @@
 # Himanshu Kumar — Engineering Portfolio
 
-A responsive, static portfolio focused on production AI, agent workflows, cloud infrastructure, and developer tools. The site uses semantic HTML, CSS, and native JavaScript modules, with no installation or build step.
+A responsive static portfolio for AI engineering, agent workflows, cloud infrastructure, and developer tools. Built with semantic HTML, CSS, and native JavaScript modules; no installation or build step is required.
 
-## Design reference
+## Design
 
-The classic view follows [Prashant Tandel’s Developer Portfolio UI](https://dribbble.com/shots/27414961-Developer-Portfolio-UI-Where-Code-Meets-Conversion): a dark editor shell, profile sidebar, file tabs, line numbers, oversized typography, project title bars, and a section index. It adapts the reference to Himanshu’s engineering content using original HTML/CSS project illustrations.
+The current design follows the image and motion reference supplied by the user: a full-screen composition with Manrope typography, staggered oversized text, orange italic accents, blue atmospheric gradients, grain, a pointer-controlled glass lens, and a layered project carousel over amber, magenta, and teal light.
 
-## Source layout
+The reference’s visual direction is adapted to Himanshu’s actual engineering work. Gradients, grain, project illustrations, and motion are implemented in HTML/CSS/JavaScript. The supplied reference video and artwork are not shipped as page backgrounds. Fonts and the profile portrait are served locally.
 
-- `dist/index.html`: profile content, experience, project cards, and semantic page structure.
-- `dist/styles.css`: editor-inspired charcoal theme, light theme, fixed sidebars, file tabs, and responsive layouts.
-- `dist/project-visuals.css`: local project illustrations and the interactive workflow diagram.
-- `dist/app.js`: workflow demonstration, project notes, filters, grid/list controls, section tracking, line numbers, dialogs, quick navigation, and theme preference.
-- `dist/fonts.css` and `dist/assets/`: self-hosted fonts, favicon, GitHub profile portrait, and the supplied profile PDF.
-- `dist/depth/`: the depth-mode variation — `index.html`, `depth.css`, `depth.js`.
-- `.openai/hosting.json`: Site identity and static hosting configuration.
-- `docs/`: font licenses and content provenance.
+The professional review adds an accurate AI Engineer title, visible résumé and work actions, earlier production evidence, AI-first project ordering, structured engineering notes, and small monochrome logos on every skill and technology tag. See [the four-perspective audit](docs/UX-AUDIT.md) and [the visual attention report](docs/audit/index.html).
 
 ## Development
 
-Serve `dist/` with any static HTTP server. For example, from the project root:
-
 ```sh
-python3 -m http.server 8000 --directory dist
+python3 -m http.server 8000 --bind 127.0.0.1 --directory dist
 ```
 
-There are no application API keys, package dependencies, or external runtime data requests. All portfolio content is served locally. Project and social links open their actual external destinations. Contact uses `mailto:` and the browser clipboard.
+Open http://127.0.0.1:8000. The preview is local; production publication is a separate step.
 
-## Editing content
+## Source layout
 
-Update profile text, metrics, experience, project summaries, and links in `dist/index.html`. Update the corresponding project notes in the `projectNotes` object in `dist/app.js`. Both the visible card and the notes should remain grounded in the linked repository. Replace the PDF in `dist/assets/` when the profile changes.
+- `dist/index.html`: portfolio content, featured carousel, project cards, experience, skills, and contact.
+- `dist/styles.css`: typography, layouts, atmospheric backgrounds, transitions, mobile layouts, and reduced-motion behavior.
+- `dist/project-visuals.css`: original project illustrations and the workflow diagram.
+- `dist/app.js`: carousel, filters, project dialogs, workflow demonstration, navigation, and motion controls.
+- `dist/motion.js`: decorative glass lens that magnifies whichever section is under the pointer, from the hero to the footer.
+- `dist/fonts.css` and `dist/assets/`: self-hosted Manrope, existing fonts for depth mode, profile portrait, favicon, and resume PDF.
+- `dist/depth/`: existing depth and flat views.
+- `dist/robots.txt`, `dist/sitemap.xml`, `dist/404.html`, `dist/assets/og-image.jpg`: search, link-preview, and not-found support.
+- `docs/CONTENT-SOURCES.md`: content and design provenance.
+- `docs/REDESIGN-QA.md`: browser and static verification.
+- `docs/previews/`: desktop and mobile screenshots.
 
-Theme tokens are at the beginning of `dist/styles.css`. The desktop layout has a fixed profile sidebar, a scrollable document with decorative line numbers, and a section index. At tablet sizes the index collapses; at phone sizes, file tabs and an expandable navigation menu keep content and controls accessible. All text remains selectable and document scrolling stays native.
+## Interactions and accessibility
 
-## Interactions
+- Browse featured projects using previous/next buttons, direct selectors, arrow keys, or horizontal touch swipes. Only the active card can receive focus. Slides do not advance automatically.
+- Filter all six projects by AI/data or developer tools, and open their details in a native modal dialog.
+- Read previews of the five most-read LinkedIn posts in the Writing section; each opens the original post.
+- Expand experience entries and the optional interactive AI workflow.
+- Use Ctrl+K or Command+K for searchable quick navigation.
+- Copy the contact email, open an email application, or download the profile PDF.
+- Pause background motion using the footer control. The operating system’s reduced-motion preference disables decorative animations and the pointer lens.
+- Background movement pauses for sections outside the viewport and when the tab is hidden. The lens is disabled for touch input, and it steps aside over links, buttons, form controls, the header, and open dialogs. Each section is copied once for the lens and re-copied only after it changes; the lens moves with compositor-only transforms and follows the content under a still pointer while scrolling.
 
-- Select a workflow node to inspect its role, or run the local step-by-step demonstration.
-- Filter the six projects by AI/data or developer tools.
-- Switch between grid and list layouts. On phones, list view shows compact project summaries.
-- Navigate with file tabs or the section index; the active section and line position follow scrolling.
-- Open project notes in a native modal dialog.
-- Expand experience entries with native disclosure controls.
-- Use Ctrl+K or Command+K for searchable quick navigation; use arrow keys and Enter to navigate.
-- Switch between dark and light themes. Only the local theme preference is persisted.
-- Copy the contact email or open an email application.
+Scrolling remains native. The page provides a skip link, visible keyboard focus, semantic headings, native dialogs, descriptive controls, and mobile navigation. Core content and repository links are present in the HTML without JavaScript. Project visuals, sample data, and the workflow are illustrative rather than live telemetry.
 
-The system workflow, terminal records, table data, and signal graph are clearly labelled illustrative. They are not live infrastructure telemetry, LLM outputs, repository screenshots, or measured results.
+## Editing
 
-## Accessibility and reliability
+Edit profile text, experience, links, and project summaries in `dist/index.html`. Update matching project notes in the `projectNotes` and `engineeringNotes` objects in `dist/app.js`. Keep the featured carousel and project list consistent. Replace the PDF and portrait in `dist/assets/` when those change.
 
-The site includes a skip link, visible focus indicators, native dialog focus management, keyboard navigation, semantic sections, touch controls, readable text, responsive layouts, a motion-pause control, and `prefers-reduced-motion` support. Core content and source links remain available without JavaScript. Animation does not gate navigation.
+Theme tokens and typography are defined at the beginning of `dist/styles.css`. Manrope is licensed under the SIL Open Font License; see `docs/manrope-OFL.txt`.
 
-The redesign is checked in Chromium using agent-browser, including responsive layouts, filters, grid/list controls, project dialogs, mobile navigation, quick navigation search, theme switching, experience disclosures, email-copy feedback, and the workflow demonstration. Static checks cover duplicate IDs, fragment targets, local assets, and JavaScript syntax. See `docs/REDESIGN-QA.md` for the verification record.
+## Current portfolio and archived experiments
 
-## Three views
-
-The same content is presented three ways, and a switcher in the top bar of every
-view moves between them:
+The current portfolio at `/` is the reviewed experience. The earlier depth and flat routes remain in the repository but are no longer linked from the portfolio:
 
 | View | Where | What it is |
 | --- | --- | --- |
-| **Classic** | `/` | The editor-inspired scrolling portfolio. |
+| **Classic** | `/` | The atmospheric, reference-inspired scrolling portfolio. |
 | **Depth** | `/depth/` | A camera that travels forward along the Z axis, plane by plane. |
 | **Flat** | `/depth/?view=flat` | Depth mode's content as one ordinary scrollable page. |
 
-Classic links out with `?view=depth` and `?view=flat`; the depth page switches
-between depth and flat in place and links back to classic. The last choice is kept
-in `localStorage`, and an explicit `?view=` always wins over it.
+The archived depth page switches between its depth and flat views. Its preference is stored in `localStorage`; it does not select the main portfolio design.
 
 ## Depth mode
 
