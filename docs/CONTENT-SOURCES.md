@@ -137,3 +137,7 @@ Dates are decoded from the activity IDs. Titles and excerpts are condensed from 
 - `dist/assets/og-image.jpg` (1200 × 630): an original card rendered from HTML in the site's own style, using the self-hosted Manrope font and portrait.
 - `index.html` head: Open Graph and Twitter card tags, a canonical URL, and a schema.org `Person` block (name, title, employer, alma mater, GitHub, LinkedIn).
 - `dist/robots.txt` (excludes the archived `/depth/` routes), `dist/sitemap.xml`, and `dist/404.html`.
+
+## Tab icon
+
+`dist/assets/favicon.svg`, `dist/favicon.ico` (16, 32, 48px), and `dist/apple-touch-icon.png` (180px) show an orange italic “H” with a white full stop, echoing the “AI Engineer.” heading, on the site’s dark blue gradient. The letter is the outline of “H” from Gelasio Italic at weight 700 (SIL Open Font License, `docs/gelasio-OFL.txt`; https://github.com/google/fonts/tree/main/ofl/gelasio), a Georgia-compatible serif, converted to a path so the icon does not depend on installed fonts.
