@@ -2,12 +2,17 @@
 
 A responsive, static portfolio focused on production AI, agent workflows, cloud infrastructure, and developer tools. The site uses semantic HTML, CSS, and native JavaScript modules, with no installation or build step.
 
+## Design reference
+
+The classic view follows [Prashant Tandel’s Developer Portfolio UI](https://dribbble.com/shots/27414961-Developer-Portfolio-UI-Where-Code-Meets-Conversion): a dark editor shell, profile sidebar, file tabs, line numbers, oversized typography, project title bars, and a section index. It adapts the reference to Himanshu’s engineering content using original HTML/CSS project illustrations.
+
 ## Source layout
 
 - `dist/index.html`: profile content, experience, project cards, and semantic page structure.
-- `dist/styles.css`: Razorpay-derived blue/black/white/grey theme, light theme, responsive layouts, and motion.
-- `dist/app.js`: workflow demonstration, project notes, filters, dialogs, quick navigation, and theme preference.
-- `dist/fonts.css` and `dist/assets/`: self-hosted fonts, favicon, and the supplied profile PDF.
+- `dist/styles.css`: editor-inspired charcoal theme, light theme, fixed sidebars, file tabs, and responsive layouts.
+- `dist/project-visuals.css`: local project illustrations and the interactive workflow diagram.
+- `dist/app.js`: workflow demonstration, project notes, filters, grid/list controls, section tracking, line numbers, dialogs, quick navigation, and theme preference.
+- `dist/fonts.css` and `dist/assets/`: self-hosted fonts, favicon, GitHub profile portrait, and the supplied profile PDF.
 - `dist/depth/`: the depth-mode variation — `index.html`, `depth.css`, `depth.js`.
 - `.openai/hosting.json`: Site identity and static hosting configuration.
 - `docs/`: font licenses and content provenance.
@@ -26,12 +31,14 @@ There are no application API keys, package dependencies, or external runtime dat
 
 Update profile text, metrics, experience, project summaries, and links in `dist/index.html`. Update the corresponding project notes in the `projectNotes` object in `dist/app.js`. Both the visible card and the notes should remain grounded in the linked repository. Replace the PDF in `dist/assets/` when the profile changes.
 
-Theme tokens are at the beginning of `dist/styles.css`. The responsive and readability refinements near the end preserve a 12px floor for secondary metadata and 16px main body text.
+Theme tokens are at the beginning of `dist/styles.css`. The desktop layout has a fixed profile sidebar, a scrollable document with decorative line numbers, and a section index. At tablet sizes the index collapses; at phone sizes, file tabs and an expandable navigation menu keep content and controls accessible. All text remains selectable and document scrolling stays native.
 
 ## Interactions
 
 - Select a workflow node to inspect its role, or run the local step-by-step demonstration.
 - Filter the six projects by AI/data or developer tools.
+- Switch between grid and list layouts. On phones, list view shows compact project summaries.
+- Navigate with file tabs or the section index; the active section and line position follow scrolling.
 - Open project notes in a native modal dialog.
 - Expand experience entries with native disclosure controls.
 - Use Ctrl+K or Command+K for searchable quick navigation; use arrow keys and Enter to navigate.
@@ -44,7 +51,7 @@ The system workflow, terminal records, table data, and signal graph are clearly 
 
 The site includes a skip link, visible focus indicators, native dialog focus management, keyboard navigation, semantic sections, touch controls, readable text, responsive layouts, a motion-pause control, and `prefers-reduced-motion` support. Core content and source links remain available without JavaScript. Animation does not gate navigation.
 
-Static validation checks HTML structure, fragment targets, referenced local assets, project links against the retrieved GitHub repository list, CSS delimiter balance, and JavaScript syntax. No browser-based visual or end-to-end QA was performed in this implementation flow.
+The redesign is checked in Chromium using agent-browser, including responsive layouts, filters, grid/list controls, project dialogs, mobile navigation, quick navigation search, theme switching, experience disclosures, email-copy feedback, and the workflow demonstration. Static checks cover duplicate IDs, fragment targets, local assets, and JavaScript syntax. See `docs/REDESIGN-QA.md` for the verification record.
 
 ## Three views
 
@@ -53,7 +60,7 @@ view moves between them:
 
 | View | Where | What it is |
 | --- | --- | --- |
-| **Classic** | `/` | The conventional scrolling portfolio. |
+| **Classic** | `/` | The editor-inspired scrolling portfolio. |
 | **Depth** | `/depth/` | A camera that travels forward along the Z axis, plane by plane. |
 | **Flat** | `/depth/?view=flat` | Depth mode's content as one ordinary scrollable page. |
 

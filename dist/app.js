@@ -4,18 +4,18 @@ const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const email = 'himanshu.kumar0012@gmail.com';
 
 // Local preferences never leave the visitor's browser.
-const themeButton = $('.theme-toggle');
+const themeButtons = $$('.theme-toggle, .mobile-theme');
 function syncThemeButton() {
   const dark = document.documentElement.dataset.theme !== 'light';
-  themeButton.setAttribute('aria-label', `Switch to ${dark ? 'light' : 'dark'} theme`);
-  $('meta[name="theme-color"]').content = dark ? '#05070d' : '#f6f8fb';
+  themeButtons.forEach(button => button.setAttribute('aria-label', `Switch to ${dark ? 'light' : 'dark'} theme`));
+  $('meta[name="theme-color"]').content = dark ? '#1e1e1e' : '#f6f5f0';
 }
-themeButton.addEventListener('click', () => {
+themeButtons.forEach(button => button.addEventListener('click', () => {
   const theme = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
   document.documentElement.dataset.theme = theme;
   try { localStorage.setItem('hk-theme', theme); } catch { /* Private browsing may disable storage. */ }
   syncThemeButton();
-});
+}));
 syncThemeButton();
 
 const menuButton = $('.mobile-menu-button');
@@ -30,7 +30,7 @@ $$('a', mobileNav).forEach(link => link.addEventListener('click', () => setMenu(
 document.addEventListener('keydown', event => {
   if (event.key === 'Escape' && !mobileNav.hidden) { setMenu(false); menuButton.focus(); }
 });
-window.matchMedia('(min-width: 681px)').addEventListener('change', event => { if (event.matches) setMenu(false); });
+window.matchMedia('(min-width: 701px)').addEventListener('change', event => { if (event.matches) setMenu(false); });
 
 // The diagram is an illustrative local animation; it makes no inference requests.
 const nodes = {
@@ -212,7 +212,7 @@ function openCommands() {
   openDialog(commandDialog);
   commandSearch.focus();
 }
-$('.command-trigger').addEventListener('click', openCommands);
+$$('.command-trigger, .mobile-command').forEach(button => button.addEventListener('click', () => { setMenu(false); openCommands(); }));
 document.addEventListener('keydown', event => {
   if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
     event.preventDefault();
@@ -266,34 +266,62 @@ $('.copy-email').addEventListener('click', async () => {
   }
 });
 
-// Progressive enhancement: content is visible when JavaScript is unavailable.
-if ('IntersectionObserver' in window && !reducedMotion.matches) {
-  const revealObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) { entry.target.classList.add('visible'); revealObserver.unobserve(entry.target); }
-    });
-  }, { threshold: 0.06, rootMargin: '0px 0px 35px 0px' });
-  document.documentElement.classList.add('js-reveal');
-  $$('.reveal').forEach(element => revealObserver.observe(element));
+// Project layouts retain the same content, links, and filter state.
+$$('.layout-button').forEach(button => button.addEventListener('click', () => {
+  const list = button.dataset.layout === 'list';
+  $('.project-grid').classList.toggle('is-list', list);
+  $$('.layout-button').forEach(other => {
+    const active = other === button;
+    other.classList.toggle('active', active);
+    other.setAttribute('aria-pressed', String(active));
+  });
+  updateScrollProgress();
+}));
+
+// Decorative line numbers follow the document height, including open disclosures.
+const lineNumbers = $('.line-numbers');
+let lineCount = 0;
+function updateLineNumbers() {
+  const count = Math.ceil($('.editor-content').offsetHeight / 25);
+  if (count === lineCount) return;
+  lineCount = count;
+  lineNumbers.replaceChildren(...Array.from({ length: count }, (_, index) => {
+    const line = document.createElement('span');
+    line.textContent = index + 1;
+    return line;
+  }));
 }
-if ('IntersectionObserver' in window) {
-  const activeSections = new Map();
-  const navObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => activeSections.set(entry.target.id, entry.isIntersecting));
-    const current = [...activeSections].find(([, active]) => active)?.[0];
-    $$('.desktop-nav a').forEach(link => {
-      const active = link.hash === `#${current}`;
-      link.classList.toggle('active', active);
-      if (active) link.setAttribute('aria-current', 'location'); else link.removeAttribute('aria-current');
-    });
-  }, { rootMargin: '-15% 0px -55% 0px' });
-  $$('main>section[id]').forEach(section => navObserver.observe(section));
+if ('ResizeObserver' in window) {
+  new ResizeObserver(() => { updateLineNumbers(); updateScrollProgress(); }).observe($('.editor-content'));
+}
+updateLineNumbers();
+
+const indexedSections = $$('main > section[id], #stack');
+function updateNavigation() {
+  const offset = 150;
+  const atBottom = window.scrollY > 0 && window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+  const current = atBottom ? 'contact' : indexedSections.filter(section => section.getBoundingClientRect().top <= offset).at(-1)?.id || 'home';
+  $$('.desktop-nav a').forEach(link => {
+    const active = link.hash === `#${current}`;
+    link.classList.toggle('active', active);
+    if (active) link.setAttribute('aria-current', 'location');
+    else link.removeAttribute('aria-current');
+  });
+  const tab = current === 'work' ? 'work' : current === 'contact' ? 'contact' : 'home';
+  $$('.file-tabs a').forEach(link => {
+    const active = link.hash === `#${tab}`;
+    link.classList.toggle('active', active);
+    if (active) link.setAttribute('aria-current', 'location');
+    else link.removeAttribute('aria-current');
+  });
 }
 let progressPending = false;
 function updateScrollProgress() {
   const total = document.documentElement.scrollHeight - window.innerHeight;
   const progress = total > 0 ? Math.min(1, Math.max(0, window.scrollY / total)) : 0;
   $('.scroll-progress').style.transform = `scaleX(${progress})`;
+  $('#read-position').textContent = `Ln ${Math.floor(window.scrollY / 25) + 1}, Col 1`;
+  updateNavigation();
   progressPending = false;
 }
 window.addEventListener('scroll', () => {

@@ -45,7 +45,7 @@ The portfolio does not copy any repository environment settings, credentials, or
 - https://rauno.me/ — concise engineering identity and attention to interaction details.
 - https://leerob.com/ — minimal, direct personal presentation.
 
-These references informed the direction. This site has original layout, copy, styling, and code; no reference portfolio's source, branding, or artwork was copied.
+These references informed the earlier design. The September editor redesign uses the user-requested reference documented below. No reference portfolio’s source code or branding was copied.
 
 ### Depth mode
 
@@ -66,3 +66,13 @@ documented above; it introduces no new claims.
 ## Fonts
 
 Space Grotesk and IBM Plex Mono were obtained from the Google Fonts stylesheet service and converted to WOFF for self-hosting. They are distributed under the SIL Open Font License; the corresponding license files accompany this source.
+
+## September 2026 editor redesign
+
+The classic view was redesigned on 19 September 2026 using the user-requested reference by Prashant Tandel:
+
+- https://dribbble.com/shots/27414961-Developer-Portfolio-UI-Where-Code-Meets-Conversion
+
+The reference was visually inspected from its full-resolution Dribbble image. Its three-column editor layout, charcoal surfaces, file tabs, line numbers, oversized headline, and project title bars informed this implementation. The source code is original and the content remains based on the portfolio records above. Project previews are local HTML/CSS illustrations, not product screenshots. The reference artwork is not distributed with the site.
+
+The profile portrait was downloaded from the user’s public GitHub avatar at https://github.com/HimanshuKumar17052001.png?size=160 and is self-hosted as `dist/assets/himanshu-avatar.png`.
