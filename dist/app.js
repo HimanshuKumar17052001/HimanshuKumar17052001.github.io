@@ -1,22 +1,16 @@
+import { initLens } from './motion.js?v=20260920-review10';
+
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const email = 'himanshu.kumar0012@gmail.com';
 
-// Local preferences never leave the visitor's browser.
-const themeButton = $('.theme-toggle');
-function syncThemeButton() {
-  const dark = document.documentElement.dataset.theme !== 'light';
-  themeButton.setAttribute('aria-label', `Switch to ${dark ? 'light' : 'dark'} theme`);
-  $('meta[name="theme-color"]').content = dark ? '#05070d' : '#f6f8fb';
-}
-themeButton.addEventListener('click', () => {
-  const theme = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
-  document.documentElement.dataset.theme = theme;
-  try { localStorage.setItem('hk-theme', theme); } catch { /* Private browsing may disable storage. */ }
-  syncThemeButton();
+// Logos for tag labels: reuse icons already on the page, plus dialog-only ones from the template.
+const tagIcons = new Map();
+[...$$('.tags span'), ...$$('[data-tag]', $('#tag-icons').content)].forEach(span => {
+  const icon = span.querySelector('.tool-icon');
+  if (icon) tagIcons.set(span.dataset.tag || span.textContent.trim(), icon);
 });
-syncThemeButton();
 
 const menuButton = $('.mobile-menu-button');
 const mobileNav = $('#mobile-nav');
@@ -59,11 +53,16 @@ $$('.system-node').forEach(node => node.addEventListener('click', () => {
 const motionButton = $('#motion-toggle');
 let motionPaused = reducedMotion.matches;
 function syncMotion() {
+  if (reducedMotion.matches) motionPaused = true;
+  motionButton.disabled = reducedMotion.matches;
   document.body.classList.toggle('motion-paused', motionPaused);
   motionButton.setAttribute('aria-pressed', String(motionPaused));
-  motionButton.setAttribute('aria-label', `${motionPaused ? 'Resume' : 'Pause'} diagram animation`);
+  motionButton.setAttribute('aria-label', `${motionPaused ? 'Resume' : 'Pause'} animations`);
   motionButton.setAttribute('title', `${motionPaused ? 'Resume' : 'Pause'} animation`);
   motionButton.firstElementChild.textContent = motionPaused ? '▷' : 'Ⅱ';
+  $('.motion-label').textContent = reducedMotion.matches ? 'Reduced motion' : motionPaused ? 'Resume motion' : 'Pause motion';
+  if (reducedMotion.matches) motionButton.setAttribute('aria-label', 'Animations disabled by reduced-motion preference');
+  document.dispatchEvent(new CustomEvent('portfolio:motion', { detail: { paused: motionPaused } }));
 }
 motionButton.addEventListener('click', () => { motionPaused = !motionPaused; syncMotion(); });
 reducedMotion.addEventListener('change', event => { motionPaused = event.matches; syncMotion(); });
@@ -109,43 +108,148 @@ $$('.filter').forEach(button => button.addEventListener('click', () => {
 }));
 
 const projectNotes = {
-  terminalhistory: {
-    title: 'TerminalHistory', category: 'DEVELOPER TOOLS / SWIFT',
-    description: 'A native macOS menu bar app and CLI that captures terminal sessions automatically and replays them with a fresh shell in the original working directory.',
-    details: ['Captures sessions through a login-shell wrapper across terminal applications, IDEs, Docker, and SSH.', 'Provides a day-grouped menu bar dropdown and a dedicated search window.', 'Stores sessions locally in SQLite, with no third-party package dependencies.'],
-    tags: ['Swift', 'macOS', 'SQLite', 'CLI'], repo: 'terminalhistory',
-  },
-  csvchat: {
-    title: 'CSVChat', category: 'AI & DATA / CONVERSATIONAL RETRIEVAL',
-    description: 'A conversational retrieval system that turns CSV data into searchable knowledge, so people can ask questions in natural language.',
-    details: ['Loads CSV data, splits it into chunks, and generates sentence-transformer embeddings.', 'Stores embeddings in FAISS for similarity search.', 'Uses a LangChain conversational retrieval chain and a Groq language model for contextual Q&A.'],
-    tags: ['Python', 'LangChain', 'FAISS', 'Groq', 'Embeddings'], repo: 'CSVChat-Intelligent-CSV-Data-Explorer',
-  },
-  academy: {
-    title: 'System Design Academy', category: 'DEVELOPER TOOLS / SYSTEM DESIGN',
-    description: 'A TypeScript and Next.js learning platform that takes developers from system-design foundations to distributed systems, operations, and interview preparation.',
-    details: ['Organises the curriculum into eight phases, from foundations and low-level design to distributed systems and reliability.', 'Includes interactive simulations, multiple quiz formats, progress tracking, and an AI learning assistant.', 'Connects concepts to case studies such as messaging, ride matching, video streaming, and search autocomplete.'],
-    tags: ['TypeScript', 'Next.js', 'System design'], repo: 'system-design-academy',
-  },
-  anomaly: {
-    title: 'Real-time Anomaly Detection', category: 'AI & DATA / STREAMING ML',
-    description: 'A dashboard for simulating a live data stream, detecting unusual observations, and inspecting the results as they arrive.',
-    details: ['Uses River’s Predictive Anomaly Detection with a SNARIMAX time-series model.', 'Simulates concept drift and occasional anomalies, visualised with Dash and Plotly.', 'Includes start, stop, and reset controls, plus CSV export of detected anomalies.'],
-    tags: ['Python', 'River', 'Dash', 'Plotly', 'SNARIMAX'], repo: 'real-time-anomaly-detection',
-  },
   docparse: {
     title: 'Hierarchical Document Parsing & Agentic Traversal Engine', category: 'DOCUMENT INTELLIGENCE / INTERNAL PROJECT',
     description: 'An engine that turns a document into a navigable tree rather than a flat page dump, so an agent can move through structure instead of re-reading everything.',
-    details: ['Parses documents into a hierarchy of pages, sections, and bounding boxes, using Claude Haiku 4.5 vision calls to infer section boundaries across varied layouts.', 'Generates a natural-language description for every node, so sections can be found by meaning rather than by coordinates.', 'Adds an agentic traversal engine with tree-navigation tools: parent, child, and sibling traversal, section-label search, and bounding-box filtering.', 'Caches tree state and re-queries only ambiguous nodes, cutting vision model API calls by more than 60%.'],
     tags: ['Python', 'Claude Haiku 4.5', 'Vision', 'Document intelligence', 'Agentic traversal'], repo: null,
     note: 'Internal work at OnFinance AI, so there is no public repository for this one.',
+  },
+  refunddesk: {
+    title: 'Refund Desk', category: 'AI AGENTS / PRODUCTION SYSTEMS',
+    description: 'An AI agent that resolves customer refund requests against a real backend where it can move money, so everything that decides whether money moves is ordinary, deterministic software.',
+    tags: ['Python', 'FastAPI', 'Kubernetes', 'Helm', 'LiteLLM', 'PostgreSQL', 'Redis', 'React', 'Playwright', 'Evals'], repo: 'refund-desk',
+  },
+  looplab: {
+    title: 'loop-lab', category: 'AGENT ENGINEERING / OPEN SOURCE',
+    description: 'A hand-written agentic loop for the Claude Messages API, written to be read rather than used as a framework, with a trace of every run and tests that exercise the control flow offline.',
+    tags: ['Python', 'Claude API', 'Tool use', 'Prompt caching', 'pytest'], repo: 'loop-lab',
+  },
+  polymarketmcp: {
+    title: 'Polymarket MCP Server', category: 'AI & DATA / MODEL CONTEXT PROTOCOL',
+    description: 'A Model Context Protocol server and command-line agent for exploring Polymarket prediction markets and how their events could affect an investor’s portfolio.',
+    tags: ['Python', 'MCP', 'LangGraph', 'Groq', 'Chroma', 'ARIMA'], repo: 'polygon-custom-mcp',
   },
   openagents: {
     title: 'Open Agents', category: 'OPEN SOURCE / CLOUD AGENTS',
     description: 'An open-source reference app for running background coding agents in the cloud. I forked it from vercel-labs/open-agents to explore the architecture and extend it.',
-    details: ['Runs chat-driven coding agents with file, search, shell, and task tools over a cloned repository.', 'Keeps the agent separate from its sandbox: the isolated VM snapshots and resumes while the durable Vercel workflow streams and stays cancellable.', 'Handles branch management with optional commits, pushes, and pull requests, plus read-only session sharing.', 'My fork adds a hardened MongoDB connector to the Python agent: schema discovery, read-only queries with size and execution guards, rejected write operators, and a PII-redacting audit log.'],
     tags: ['TypeScript', 'Next.js', 'Vercel Workflows', 'Python', 'MongoDB'], repo: 'open-agents',
   },
+  anomaly: {
+    title: 'Real-time Anomaly Detection', category: 'AI & DATA / STREAMING ML',
+    description: 'A dashboard for simulating a live data stream, detecting unusual observations, and inspecting the results as they arrive.',
+    tags: ['Python', 'River', 'Dash', 'Plotly', 'SNARIMAX'], repo: 'real-time-anomaly-detection',
+  },
+};
+
+const engineeringNotes = {
+  "docparse": [
+    [
+      "Problem",
+      "Long documents contain useful structure that is lost when every page is treated as a flat block of text. Agents need to locate a section and return to its surrounding context."
+    ],
+    [
+      "My implementation",
+      "Built a hierarchy of pages, sections, and bounding boxes using Claude Haiku 4.5 vision. Each node receives a natural-language description; agents navigate with parent, child, sibling, section-search, and bounding-box tools."
+    ],
+    [
+      "Engineering decision",
+      "Cache the document tree and revisit ambiguous nodes selectively. This makes model calls targeted and preserves document relationships during traversal."
+    ],
+    [
+      "Evidence & scope",
+      "Internal work at OnFinance AI. My résumé reports a reduction of more than 60% in vision API calls; the benchmark and source code are not public. No public accuracy or latency evaluation is provided here."
+    ]
+  ],
+  "refunddesk": [
+    [
+      "Problem",
+      "An agent that can issue refunds must not be argued out of policy, retry its way into duplicate payments, or approve its own decisions."
+    ],
+    [
+      "My implementation",
+      "Five services on Kubernetes from one Helm chart: a React web app, a FastAPI orders, policy, and refunds API, JWT authentication, the agent, and a LiteLLM gateway that is the cluster’s only route to a model. The agent holds no provider key."
+    ],
+    [
+      "Engineering decision",
+      "The agent only proposes. Policy is a pure function that the API re-checks on every mutation, the agent’s token cannot approve refunds, and a UNIQUE constraint makes retries idempotent."
+    ],
+    [
+      "Evidence & scope",
+      "Benchmarked on the public Olist dataset: 98,666 orders and 5,022 refund complaints in Portuguese. On 20 real tickets: 80% accuracy, 5% false-refund rate, about $0.0125 and 11 seconds per ticket. Accuracy rose from 50% through harness and benchmark fixes, not model changes. Labels come from the policy engine applied to real facts, not human annotation. 32 backend tests and 12 Playwright end-to-end tests. Runs on a local Kubernetes cluster; it is not a deployed service."
+    ]
+  ],
+  "looplab": [
+    [
+      "Problem",
+      "Frameworks hide the control flow where agent bugs live: rebuilt assistant turns, split tool results, runaway loops, and context that is re-sent and paid for on every turn."
+    ],
+    [
+      "My implementation",
+      "Wrote the loop directly on the Claude Messages API with a sandboxed tool registry, guards for turn caps, token budgets, and repeated calls, and a JSONL trace of tokens, latency, and tool calls per turn."
+    ],
+    [
+      "Engineering decision",
+      "Guards live in the harness, not the prompt. Failed tool calls return to the model as data so it can recover. Two rolling cache breakpoints sit at the end of the conversation, and the loop warns when no cache read occurs."
+    ],
+    [
+      "Evidence & scope",
+      "46 offline tests drive the control flow through a scripted stand-in for the SDK. Refund Desk runs this engine unmodified. A reference harness for understanding agent loops, not a framework."
+    ]
+  ],
+  "polymarketmcp": [
+    [
+      "Problem",
+      "Prediction markets price real-world events, but finding the relevant markets, reading live prices, and reasoning about where probabilities may move takes several separate tools."
+    ],
+    [
+      "My implementation",
+      "A FastMCP server exposes four tools: market search over a Chroma index, concurrent order-book requests to the Polymarket CLOB API, price history, and ARIMA forecasts with automatic order selection. A LangGraph ReAct client on Groq loads the tools over MCP."
+    ],
+    [
+      "Engineering decision",
+      "Keep data access and forecasting behind typed MCP tools, so any MCP-compatible client can use them and the model reasons over tool results instead of calling APIs directly."
+    ],
+    [
+      "Evidence & scope",
+      "Public repository linked below. Forecasts are statistical projections from price history, not trading advice; no backtest or accuracy result is claimed."
+    ]
+  ],
+  "openagents": [
+    [
+      "Starting point",
+      "A fork of vercel-labs/open-agents, an open-source reference app for background coding agents. The upstream project provides the agent, sandbox, and durable workflow architecture."
+    ],
+    [
+      "My contribution",
+      "Added a MongoDB connector to the Python agent with schema discovery, read-only queries, result-size and execution guards, rejection of write operators, and a PII-redacting audit log."
+    ],
+    [
+      "Engineering focus",
+      "Constrain database tools before exposing them to an agent: limit what a query can do, how much it returns, and what is retained in logs."
+    ],
+    [
+      "Evidence & scope",
+      "The linked repository is my fork. The cloud agent platform and its original architecture belong to the upstream project; my contribution is the MongoDB extension."
+    ]
+  ],
+  "anomaly": [
+    [
+      "Problem",
+      "Inspect unusual observations as a time series changes, rather than waiting for a batch report."
+    ],
+    [
+      "Implementation",
+      "Combined River’s Predictive Anomaly Detection and a SNARIMAX model with a Dash and Plotly interface. The stream can simulate anomalies and concept drift."
+    ],
+    [
+      "Interaction",
+      "Start, stop, or reset the stream, inspect detected anomalies, and export results as CSV."
+    ],
+    [
+      "Evidence & scope",
+      "Public repository linked below. The stream is simulated; this project is not presented as a deployed fraud or incident detection system."
+    ]
+  ]
 };
 
 function openDialog(dialog) {
@@ -167,16 +271,21 @@ $$('[data-project]').forEach(button => button.addEventListener('click', () => {
   $('#dialog-category').textContent = project.category;
   $('#dialog-title').textContent = project.title;
   $('#dialog-description').textContent = project.description;
-  const list = document.createElement('ul');
-  for (const detail of project.details) {
-    const item = document.createElement('li');
-    item.textContent = detail;
-    list.append(item);
+  const notes = document.createElement('div');
+  notes.className = 'case-study';
+  for (const [label, text] of engineeringNotes[button.dataset.project]) {
+    const heading = document.createElement('h3');
+    heading.textContent = label;
+    const paragraph = document.createElement('p');
+    paragraph.textContent = text;
+    notes.append(heading, paragraph);
   }
-  $('#dialog-details').replaceChildren(list);
+  $('#dialog-details').replaceChildren(notes);
   $('#dialog-tags').replaceChildren(...project.tags.map(tag => {
     const span = document.createElement('span');
     span.textContent = tag;
+    const icon = tagIcons.get(tag);
+    if (icon) span.prepend(icon.cloneNode(true));
     return span;
   }));
   const note = $('#dialog-note');
@@ -212,7 +321,7 @@ function openCommands() {
   openDialog(commandDialog);
   commandSearch.focus();
 }
-$('.command-trigger').addEventListener('click', openCommands);
+$$('.command-trigger, .mobile-command').forEach(button => button.addEventListener('click', () => { setMenu(false); openCommands(); }));
 document.addEventListener('keydown', event => {
   if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
     event.preventDefault();
@@ -266,43 +375,98 @@ $('.copy-email').addEventListener('click', async () => {
   }
 });
 
-// Progressive enhancement: content is visible when JavaScript is unavailable.
-if ('IntersectionObserver' in window && !reducedMotion.matches) {
-  const revealObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) { entry.target.classList.add('visible'); revealObserver.unobserve(entry.target); }
-    });
-  }, { threshold: 0.06, rootMargin: '0px 0px 35px 0px' });
-  document.documentElement.classList.add('js-reveal');
-  $$('.reveal').forEach(element => revealObserver.observe(element));
-}
-if ('IntersectionObserver' in window) {
-  const activeSections = new Map();
-  const navObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => activeSections.set(entry.target.id, entry.isIntersecting));
-    const current = [...activeSections].find(([, active]) => active)?.[0];
-    $$('.desktop-nav a').forEach(link => {
-      const active = link.hash === `#${current}`;
-      link.classList.toggle('active', active);
-      if (active) link.setAttribute('aria-current', 'location'); else link.removeAttribute('aria-current');
-    });
-  }, { rootMargin: '-15% 0px -55% 0px' });
-  $$('main>section[id]').forEach(section => navObserver.observe(section));
-}
+// Native scrolling, with the current section reflected in the top navigation.
+const navSections = ['work', 'experience', 'about', 'writing', 'contact'].map(id => document.getElementById(id));
 let progressPending = false;
 function updateScrollProgress() {
   const total = document.documentElement.scrollHeight - window.innerHeight;
   const progress = total > 0 ? Math.min(1, Math.max(0, window.scrollY / total)) : 0;
   $('.scroll-progress').style.transform = `scaleX(${progress})`;
+  $('.site-header').classList.toggle('scrolled', window.scrollY > 70);
+  const current = progress >= .999 && window.scrollY > 0 ? 'contact' : navSections.filter(section => section.getBoundingClientRect().top < 180).at(-1)?.id;
+  $$('.desktop-nav a').forEach(link => {
+    const active = link.hash === `#${current}`;
+    link.classList.toggle('active', active);
+    if (active) link.setAttribute('aria-current', 'location');
+    else link.removeAttribute('aria-current');
+  });
   progressPending = false;
 }
 window.addEventListener('scroll', () => {
   if (!progressPending) { requestAnimationFrame(updateScrollProgress); progressPending = true; }
 }, { passive: true });
 window.addEventListener('resize', updateScrollProgress, { passive: true });
+new ResizeObserver(updateScrollProgress).observe($('main'));
 updateScrollProgress();
+
+// The featured deck responds to buttons, arrow keys, and horizontal touch swipes.
+const carousel = $('.project-carousel');
+const slides = $$('.showcase-card');
+const slideButtons = $$('[data-slide-to]');
+let currentSlide = 0;
+function selectSlide(index, announce = true) {
+  currentSlide = (index + slides.length) % slides.length;
+  slides.forEach((slide, i) => {
+    const position = (i - currentSlide + slides.length) % slides.length;
+    slide.dataset.position = position;
+    slide.inert = position !== 0;
+    slide.setAttribute('aria-hidden', String(position !== 0));
+  });
+  slideButtons.forEach((button, i) => button.setAttribute('aria-pressed', String(i === currentSlide)));
+  if (announce) $('.carousel-status').textContent = slides[currentSlide].getAttribute('aria-label');
+}
+slideButtons.forEach(button => button.addEventListener('click', () => selectSlide(Number(button.dataset.slideTo))));
+$$('[data-direction]').forEach(button => button.addEventListener('click', () => selectSlide(currentSlide + Number(button.dataset.direction))));
+carousel.addEventListener('keydown', event => {
+  if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+  event.preventDefault();
+  const focusWasInSlide = slides.some(slide => slide.contains(document.activeElement));
+  selectSlide(currentSlide + (event.key === 'ArrowRight' ? 1 : -1));
+  if (focusWasInSlide) $('[data-project]', slides[currentSlide]).focus({ preventScroll: true });
+});
+let swipeStart;
+const deck = $('.project-deck');
+deck.addEventListener('pointerdown', event => {
+  if (event.pointerType === 'touch') swipeStart = { x: event.clientX, y: event.clientY };
+});
+deck.addEventListener('pointerup', event => {
+  if (!swipeStart) return;
+  const dx = event.clientX - swipeStart.x;
+  const dy = event.clientY - swipeStart.y;
+  if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.5) selectSlide(currentSlide + (dx < 0 ? 1 : -1));
+  swipeStart = null;
+});
+deck.addEventListener('pointercancel', () => { swipeStart = null; });
+selectSlide(0, false);
+
+// Content remains readable if motion is disabled or JavaScript is unavailable.
+if ('IntersectionObserver' in window) {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: .08 });
+  if (!reducedMotion.matches) document.documentElement.classList.add('js-motion');
+  $$('.project-card, .about-copy, .stack-group, .section-heading, .writing-card, .honour-line').forEach(element => {
+    element.classList.add('reveal');
+    observer.observe(element);
+  });
+}
+document.addEventListener('visibilitychange', () => document.body.classList.toggle('page-hidden', document.hidden));
 const localTime = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', hour12: false });
 function updateTime() { $('#local-time').textContent = `${localTime.format(new Date())} IST`; }
 $('#year').textContent = new Date().getFullYear();
 updateTime();
 setInterval(updateTime, 60000);
+
+initLens([...$('#main').children, $('.site-footer')].filter(element => element.matches('section, [role="region"], footer')));
+
+// Suspend background movement while its section is outside the viewport.
+if ('IntersectionObserver' in window) {
+  const atmosphereObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => entry.target.classList.toggle('ambient-offscreen', !entry.isIntersecting));
+  });
+  $$('.hero, .showcase, .contact-section').forEach(section => atmosphereObserver.observe(section));
+}
